@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MolWard Sketcher Interface</title>
+    <title>MolWard Ketcher Interface</title>
     <link rel="stylesheet" href="static/css/main.css">
     <style>
         body, html { 
@@ -27,24 +27,24 @@
     <script src="static/js/main.js"></script>
 
     <script>
-        // This function runs once the page and Ketcher are fully loaded
+
         window.onload = () => {
             console.log("MolWard Sketcher Initialized");
 
-            // 1. Listen for messages coming FROM your Wix site
+
             window.addEventListener("message", (event) => {
                 
-                // Security check: Ensure we only respond to the 'getMolfile' request
+
                 if (event.data === "getMolfile") {
                     
-                    // Access the Ketcher API (provided by main.js)
+
                     const ketcher = window.ketcher;
 
                     if (ketcher) {
-                        // 2. Extract the molecule data as a Molfile string
+
                         ketcher.getMolfile().then((molBlock) => {
                             
-                            // 3. Send the chemical data back to the Wix parent page
+
                             window.parent.postMessage(molBlock, "*");
                             console.log("Molfile sent to Wix successfully.");
                             
