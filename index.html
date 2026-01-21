@@ -16,16 +16,16 @@
     <script src="static/js/main.js"></script>
 
     <script>
-        window.onload = () => {
-            console.log("MolWard Sketcher Ready");
-            window.addEventListener("message", (event) => {
-                if (event.data === "getMolfile" && window.ketcher) {
-                    window.ketcher.getMolfile().then((mol) => {
-                        window.parent.postMessage(mol, "*");
-                    });
-                }
-            });
-        };
+      // This lives INSIDE the GitHub Ketcher
+      window.addEventListener("message", async (event) => {
+        if (event.data === "requestMolfile") {
+          if (window.ketcher) {
+            const molblock = await window.ketcher.getMolfile();
+            // Send the data back to the Wix "envelope"
+            event.source.postMessage({ type: "molData", value: molblock }, "*");
+          }
+        }
+      });
     </script>
 </body>
 </html>
